@@ -1,3 +1,6 @@
 .idea/
 out/
 CodingInterviews.iml
+bin/
+.classpath
+.project
