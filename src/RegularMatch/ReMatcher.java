@@ -5,10 +5,9 @@ import java.util.regex.Pattern;
 public class ReMatcher {
 
     public static void main(String[] args) {
-        System.out.println(Pattern.matches(".*", "aaa"));
-        System.out.println(dpUpMatch("aaa", ".*"));
+        System.out.println(Pattern.matches("ab*a*c*a", "aaa"));
+        System.out.println(dpUpMatch("", ""));
     }
-
     /*
         判断字符串和模式是否匹配，不是字符串的某个真子串和模式是否匹配
         匹配：字符串的每个字符都能映射到模式的某个字符上且是满射  f(字符串的一个字符) = 模式的一个字符
@@ -57,14 +56,14 @@ public class ReMatcher {
 
     // 子问题结构：dp[1...i][1...j]具有右边界
     // 自底向上的dp枚举各种情况
-    static boolean dpUpMatch(String text, String pattern) {
-        if (!pattern.isEmpty() && pattern.charAt(0) == '*')
+    static boolean dpUpMatch(String s, String p) {
+        if (!p.isEmpty() && p.charAt(0) == '*')
             return false;
-        boolean[][] dp = new boolean[text.length() + 1][pattern.length() + 1];
+        boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
         dp[0][0] = true;
 
-        for (int j = 1; j <= pattern.length(); ++j) {
-            if (pattern.charAt(j - 1) == '*') {
+        for (int j = 1; j <= p.length(); ++j) {
+            if (p.charAt(j - 1) == '*') {
                 dp[0][j] = dp[0][j - 2];
             } else {
                 dp[0][j] = false;
@@ -72,21 +71,21 @@ public class ReMatcher {
         }
 
         // i和j分别指代text和pattern的前缀
-        for (int i = 1; i <= text.length(); ++i) {
-            for (int j = 1; j <= pattern.length(); ++j) {
-                if (pattern.charAt(j - 1) == '*') {
-                    if (pattern.charAt(j - 2) == text.charAt(i - 1) || pattern.charAt(j - 2) == '.') {
-                        dp[i][j] = dp[i - 1][j];
+        for (int i = 1; i <= s.length(); ++i) {
+            for (int j = 1; j <= p.length(); ++j) {
+                if (p.charAt(j - 1) == '*') {
+                    if (p.charAt(j - 2) == s.charAt(i - 1) || p.charAt(j - 2) == '.') {
+                        dp[i][j] = dp[i - 1][j] || dp[i][j - 2];
                     } else {
                         dp[i][j] = dp[i][j - 2];
                     }
                 } else {
-                    dp[i][j] = (pattern.charAt(j - 1) == text.charAt(i - 1) || pattern.charAt(j - 1) == '.')
+                    dp[i][j] = (p.charAt(j - 1) == s.charAt(i - 1) || p.charAt(j - 1) == '.')
                             && dp[i - 1][j - 1];
                 }
             }
         }
 
-        return dp[text.length()][pattern.length()];
+        return dp[s.length()][p.length()];
     }
 }
