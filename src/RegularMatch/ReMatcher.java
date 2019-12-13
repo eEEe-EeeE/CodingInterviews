@@ -1,6 +1,13 @@
 package RegularMatch;
 
+import java.util.regex.Pattern;
+
 public class ReMatcher {
+
+    public static void main(String[] args) {
+        System.out.println(Pattern.matches(".*", "aaa"));
+        System.out.println(dpUpMatch("aaa", ".*"));
+    }
 
     /*
         判断字符串和模式是否匹配，不是字符串的某个真子串和模式是否匹配
@@ -49,18 +56,33 @@ public class ReMatcher {
     }
 
     // 子问题结构：dp[1...i][1...j]具有右边界
+    // 自底向上的dp枚举各种情况
     static boolean dpUpMatch(String text, String pattern) {
-        if (pattern.isEmpty())
-            return text.isEmpty();
+        if (!pattern.isEmpty() && pattern.charAt(0) == '*')
+            return false;
         boolean[][] dp = new boolean[text.length() + 1][pattern.length() + 1];
-        boolean firstMatch;
-        for (int i = 0; i <= text.length(); ++i) {
-            for (int j = 0; j <= pattern.length(); ++j) {
-                firstMatch = i != text.length() && (text.charAt(i) == pattern.charAt(j) || pattern.charAt(j) == '.');
-                if (j + 1 < pattern.length() && pattern.charAt(j + 1) == '*') {
+        dp[0][0] = true;
 
+        for (int j = 1; j <= pattern.length(); ++j) {
+            if (pattern.charAt(j - 1) == '*') {
+                dp[0][j] = dp[0][j - 2];
+            } else {
+                dp[0][j] = false;
+            }
+        }
+
+        // i和j分别指代text和pattern的前缀
+        for (int i = 1; i <= text.length(); ++i) {
+            for (int j = 1; j <= pattern.length(); ++j) {
+                if (pattern.charAt(j - 1) == '*') {
+                    if (pattern.charAt(j - 2) == text.charAt(i - 1) || pattern.charAt(j - 2) == '.') {
+                        dp[i][j] = dp[i - 1][j];
+                    } else {
+                        dp[i][j] = dp[i][j - 2];
+                    }
                 } else {
-
+                    dp[i][j] = (pattern.charAt(j - 1) == text.charAt(i - 1) || pattern.charAt(j - 1) == '.')
+                            && dp[i - 1][j - 1];
                 }
             }
         }
