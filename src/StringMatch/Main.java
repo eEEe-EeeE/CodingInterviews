@@ -1,4 +1,4 @@
-package StringMatching;
+package StringMatch;
 
 import java.nio.charset.Charset;
 

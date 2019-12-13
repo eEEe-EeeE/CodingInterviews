@@ -1,7 +1,11 @@
+import java.nio.charset.Charset;
+import java.util.regex.Pattern;
+
+
 public class Main {
     public static void main(String[] args) {
-        String textStr = "qwe";
-        String patStr = "asd";
-        int[] preFixFunc = new int[patStr.length()];
+        String text = "aa";
+        String pattern = "a";
+        System.out.println(Pattern.matches(pattern, text));
     }
 }

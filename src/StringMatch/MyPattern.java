@@ -1,4 +1,4 @@
-package StringMatching;
+package StringMatch;
 
 public class MyPattern {
     private String P;

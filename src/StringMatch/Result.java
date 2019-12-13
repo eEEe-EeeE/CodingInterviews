@@ -1,6 +1,4 @@
-package StringMatching;
-
-import java.util.ArrayList;
+package StringMatch;
 
 public class Result {
     private Integer[] effectiveShifts;

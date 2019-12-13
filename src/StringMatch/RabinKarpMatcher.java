@@ -1,6 +1,5 @@
-package StringMatching;
+package StringMatch;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 
 public class RabinKarpMatcher {
