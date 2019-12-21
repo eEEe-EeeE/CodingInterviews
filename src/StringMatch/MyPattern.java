@@ -26,7 +26,7 @@ public class MyPattern {
 
     public void setPreFixFunc(int q, int k) {
         if (0 <= k && k < q && q <= preFix.length)
-            this.preFix[q] = k;
+            this.preFix[q - 1] = k;
         else
             System.out.println("error: 0 <= k < q <= P.length.");
     }

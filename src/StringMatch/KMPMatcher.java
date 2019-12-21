@@ -13,30 +13,30 @@ public class KMPMatcher {
         // 读入字符a之前的状态
         int k = 0;
         pattern.setPreFixFunc(1, 0);
-        for (int q = 2; q <= len; ++q) {
+        for (int q = 1; q <= len; ++q) {
             // 调整Pq-1的匹配状态，再比较P[k+1]和a
-            while (k > 0 && pattern.getPatStr().charAt(k + 1) != pattern.getPatStr().charAt(q)) {
+            while (k > 0 && pattern.getPatStr().charAt(k) != pattern.getPatStr().charAt(q)) {
                 k = pattern.getPreFixFunc(k);
             }
-            if (pattern.getPatStr().charAt(k + 1) == pattern.getPatStr().charAt(q)) {
+            if (pattern.getPatStr().charAt(k) == pattern.getPatStr().charAt(q)) {
                 ++k;
             }
-            pattern.setPreFixFunc(q, k);
+            pattern.setPreFixFunc(q + 1, k);
         }
         return pattern;
     }
 
-    Result matchString(String textStr, String patStr) {
+    public Result matchString(String textStr, String patStr) {
         int tLen = textStr.length();
         int pLen = patStr.length();
         MyPattern pattern = computePrefixFunc(patStr);
         int k = 0;
         ArrayList<Integer> list = new ArrayList<>();
         for (int i = 0; i < tLen; ++i) {
-            while (k > 0 && pattern.getPatStr().charAt(k + 1) != textStr.charAt(i)) {
+            while (k > 0 && pattern.getPatStr().charAt(k) != textStr.charAt(i)) {
                 k = pattern.getPreFixFunc(k);
             }
-            if (pattern.getPatStr().charAt(k + 1) == textStr.charAt(i)) {
+            if (pattern.getPatStr().charAt(k) == textStr.charAt(i)) {
                 ++k;
             }
             if (k == pLen) {
