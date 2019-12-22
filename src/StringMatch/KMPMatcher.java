@@ -13,7 +13,7 @@ public class KMPMatcher {
         // 读入字符a之前的状态
         int k = 0;
         pattern.setPreFixFunc(1, 0);
-        for (int q = 1; q <= len; ++q) {
+        for (int q = 1; q < len; ++q) {
             // 调整Pq-1的匹配状态，再比较P[k+1]和a
             while (k > 0 && pattern.getPatStr().charAt(k) != pattern.getPatStr().charAt(q)) {
                 k = pattern.getPreFixFunc(k);
