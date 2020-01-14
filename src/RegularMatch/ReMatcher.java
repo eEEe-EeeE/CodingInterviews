@@ -6,7 +6,7 @@ public class ReMatcher {
 
     public static void main(String[] args) {
         System.out.println(Pattern.matches("ab*a*c*a", "aaa"));
-        System.out.println(dpUpMatch("", ""));
+        System.out.println(dpUpMatch("", "a*"));
     }
     /*
         判断字符串和模式是否匹配，不是字符串的某个真子串和模式是否匹配
@@ -54,7 +54,15 @@ public class ReMatcher {
         return dp[i][j];
     }
 
-    // 子问题结构：dp[1...i][1...j]具有右边界
+    // 子问题结构：dp[1...i][1...j]具有右边界，即左边固定，右边增长
+    // 下标分别指代text和pattern的前缀，数组值表示两个前缀是否匹配
+    /*
+        分析：
+        1.前缀P(j)的最后一个字符为一般字符或者.字符，当字符text(i)和pattern(j)匹配且前缀T(i-1)和P(j-1)匹配时前缀T(i)和P(j)匹配
+        2.前缀P(j)的最后一个字符为*字符，当字符text(i)和pattern(j-1)不匹配且前缀T(i)和P(j-2)匹配时前缀T(i)和P(j)匹配，限定符匹配0次
+        3.前缀P(j)的最后一个字符为*字符，当字符text(i)和pattern(j-1)匹配且前缀T(i)和P(j-2)匹配或者前缀T(i-1)和P(j)匹配时前缀T(i)和P(j)匹配，限定符匹配0次或者多次
+        2和3说明，限定符前一个字符不匹配时如果要前缀匹配则限定符只能匹配0次，限定符前一个字符匹配时如果要前缀匹配则限定符可以匹配0次也可以匹配多次
+     */
     // 自底向上的dp枚举各种情况
     static boolean dpUpMatch(String s, String p) {
         if (!p.isEmpty() && p.charAt(0) == '*')

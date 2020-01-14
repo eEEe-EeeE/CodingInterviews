@@ -1,5 +1,6 @@
 package question15.solution;
 
+// 计算一个整数的二进制表示中1的数目
 public class Solution {
     static int solute1(int n) {
         int cnt = 0;
