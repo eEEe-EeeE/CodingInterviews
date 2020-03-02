@@ -1,7 +1,7 @@
 package question25;
 
 import bean.MyList;
-import bean.MyLNode;
+import bean.LNode;
 
 // 合并两个排序链表
 public class Solution {
@@ -11,8 +11,8 @@ public class Solution {
         if (l2 == null)
             return l1;
         MyList res = new MyList();
-        MyLNode p1 = l1.getHead();
-        MyLNode p2 = l2.getHead();
+        LNode p1 = l1.getHead();
+        LNode p2 = l2.getHead();
         while (p1 != null && p2 != null) {
             if (p1.getValue() <= p2.getValue()) {
                 res.add(p1.getValue());
@@ -36,7 +36,7 @@ public class Solution {
         return res;
     }
 
-    static MyLNode solute2(MyLNode l1, MyLNode l2) {
+    static LNode solute2(LNode l1, LNode l2) {
         if (l1 == null)
             return l2;
         if (l2 == null)

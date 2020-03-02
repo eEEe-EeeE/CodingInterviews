@@ -1,17 +1,28 @@
 package bean;
 
+import org.omg.PortableInterceptor.INACTIVE;
+
 import java.util.Arrays;
 
 public class BTNode {
-    private int key;
+    private Integer key;
     private BTNode left;
     private BTNode right;
 
-    public int getKey() {
+    public BTNode() {
+    }
+
+    public BTNode(Integer key, BTNode left, BTNode right) {
+        this.key = key;
+        this.left = left;
+        this.right = right;
+    }
+
+    public Integer getKey() {
         return key;
     }
 
-    public void setKey(int key) {
+    public void setKey(Integer key) {
         this.key = key;
     }
 
@@ -51,5 +62,7 @@ public class BTNode {
         }
     }
 
-
+    public boolean isLeaf() {
+        return left == null && right == null;
+    }
 }

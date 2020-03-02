@@ -1,7 +1,7 @@
 package question24;
 
 import bean.MyList;
-import bean.MyLNode;
+import bean.LNode;
 
 // 反转链表
 public class Solution {
@@ -9,10 +9,10 @@ public class Solution {
         if (list == null || list.getHead() == null || list.getHead().getNext() == null)
             return list;
 
-        MyLNode temp = list.getHead();
-        MyLNode prev = list.getHead();
-        MyLNode cur = list.getHead();
-        MyLNode next = list.getHead().getNext();
+        LNode temp = list.getHead();
+        LNode prev = list.getHead();
+        LNode cur = list.getHead();
+        LNode next = list.getHead().getNext();
 
         cur.setNext(null);
         prev = cur;

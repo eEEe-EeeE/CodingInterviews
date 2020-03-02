@@ -2,8 +2,8 @@ package bean;
 
 public class MyList {
 
-    private MyLNode head;
-    private MyLNode tail;
+    private LNode head;
+    private LNode tail;
     private int size;
 
     public MyList(int[] arr) {
@@ -16,11 +16,11 @@ public class MyList {
     public MyList() {
     }
 
-    public MyLNode getHead() {
+    public LNode getHead() {
         return head;
     }
 
-    public MyLNode getTail() {
+    public LNode getTail() {
         return tail;
     }
 
@@ -28,29 +28,29 @@ public class MyList {
         return size;
     }
 
-    public void setHead(MyLNode head) {
+    public void setHead(LNode head) {
         this.head = head;
     }
 
-    public void setTail(MyLNode tail) {
+    public void setTail(LNode tail) {
         this.tail = tail;
     }
 
     public void add(int v) {
         if (tail == null) {
-            tail = new MyLNode(v, null);
+            tail = new LNode(v, null);
             head = tail;
         } else {
-            tail.next = new MyLNode(v, null);
+            tail.next = new LNode(v, null);
             tail = tail.next;
         }
         ++size;
     }
 
-    public MyLNode node(int index) {
+    public LNode node(int index) {
         if (index < 0 || index >= size)
             return null;
-        MyLNode p = head;
+        LNode p = head;
         for (int i = 0; i < index; ++i) {
             p = p.next;
         }
@@ -60,8 +60,8 @@ public class MyList {
     public Integer getLastK(int k) {
         if (k < 1 || k > size)
             return null;
-        MyLNode pK = head;
-        MyLNode cur = head;
+        LNode pK = head;
+        LNode cur = head;
         for (int i = 0; i < k; ++i)
             cur = cur.next;
         while (cur != null) {
@@ -77,8 +77,8 @@ public class MyList {
         if (size == 1 || size == 2)
             return head.value;
 
-        MyLNode fast = head;
-        MyLNode slow = head;
+        LNode fast = head;
+        LNode slow = head;
         while (true) {
             fast = fast.next;
             if (fast == null)
@@ -96,7 +96,7 @@ public class MyList {
     }
 
     public void printList() {
-        MyLNode p = head;
+        LNode p = head;
         while (p != null) {
             System.out.println(p.getValue());
             p = p.getNext();

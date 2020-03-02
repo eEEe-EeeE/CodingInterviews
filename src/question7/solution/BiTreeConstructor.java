@@ -2,6 +2,8 @@ package question7.solution;
 
 import question7.bean.BiTreeNode;
 
+// 前序序列和中序序列构造二叉树
+// 两个问题：1.二叉树不能有重复数值的结点 2.只有当两个序列完全从流中读出才能开始构造
 class BiTreeConstructor {
 
 

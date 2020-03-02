@@ -1,7 +1,7 @@
 package question25;
 
 import bean.MyList;
-import bean.MyLNode;
+import bean.LNode;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,7 +9,7 @@ public class Main {
         MyList l2 = new MyList(new int[]{0, 2, 4, 6, 8});
         MyList l = Solution.solute(l1, l2);
         l.printList();
-        MyLNode node = Solution.solute2(l1.getHead(), l2.getHead());
+        LNode node = Solution.solute2(l1.getHead(), l2.getHead());
         while (node != null) {
             System.out.println(node.getValue());
             node = node.getNext();

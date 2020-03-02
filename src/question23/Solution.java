@@ -1,7 +1,7 @@
 package question23;
 
 import bean.MyList;
-import bean.MyLNode;
+import bean.LNode;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,11 +9,11 @@ import java.util.Set;
 // 找到链表环路的入口结点
 public class Solution {
 
-    static MyLNode solute(int[] arr, int entrance) {
+    static LNode solute(int[] arr, int entrance) {
         MyList list = new MyList(arr);
         list.reformLoop(entrance);
-        Set<MyLNode> set = new HashSet<>();
-        MyLNode p = list.getHead();
+        Set<LNode> set = new HashSet<>();
+        LNode p = list.getHead();
         while (p != null) {
             if (!set.contains(p))
                 set.add(p);
@@ -24,12 +24,12 @@ public class Solution {
         return p;
     }
 
-    static MyLNode solute2(int[] arr, int entrance) {
+    static LNode solute2(int[] arr, int entrance) {
         MyList list = new MyList(arr);
         list.reformLoop(entrance);
 
-        MyLNode slow = list.getHead();
-        MyLNode fast = list.getHead().getNext();
+        LNode slow = list.getHead();
+        LNode fast = list.getHead().getNext();
         while (fast != slow) {
             if (fast == null || fast.getNext() == null)
                 return null;
@@ -41,7 +41,7 @@ public class Solution {
             slow = slow.getNext();
             ++loopSize;
         } while (slow != fast);
-        MyLNode p = list.getHead();
+        LNode p = list.getHead();
         int n = list.getSize() - loopSize;
         while (n-- > 0) {
             p = p.getNext();
