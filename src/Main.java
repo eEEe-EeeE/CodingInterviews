@@ -1,12 +1,36 @@
+import bean.BTNode;
+import org.omg.CORBA.INTERNAL;
+
+import java.util.*;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-        int dividend = 1;
-        int divisor = 1;
-        System.out.println(divide(dividend, divisor));
-        System.out.println(divide2(dividend, divisor));
-        System.out.println(divide3(dividend, divisor));
-        System.out.println(dividend / divisor);
+        Integer[] arr = new Integer[]{8, 8, 9, null, null, 2, 4, null, null, 7, null, null, 7, null, null};
+        String s = "abc";
+        String s1= "abcabcabc";
+        System.out.println("hello world.");
+    }
+    static boolean eliminated(String str, int len) {
+        int j = 0;
+        for (int i = len; i < str.length(); ++i) {
+            if (str.charAt(i) != str.charAt(j))
+                return false;
+            j = (j + 1) % len;
+        }
+        return true;
+    }
+    static int foo(int a, int b){
+        if (b == 0) return 0;
+        if (b %2 == 0) return foo(a+a,b/2);
+        return foo(a+a,b/2)+a;
+    }
+    static void preOrder(BTNode tree) {
+        if (tree != null) {
+            System.out.print(tree.getKey());
+            System.out.print(' ');
+            preOrder(tree.getLeft());
+            preOrder(tree.getRight());
+        }
     }
 
     static int divide(int dividend, int divisor) {
@@ -71,11 +95,4 @@ public class Main {
         return (1 << cnt) + _divide3(dividend - (divisor << cnt), divisor);
     }
 
-    void func() {
-        try {
-            int x = 1 / 0;
-        } catch (ArithmeticException e) {
-            System.out.println(e);
-        }
-    }
 }

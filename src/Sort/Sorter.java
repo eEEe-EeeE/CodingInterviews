@@ -6,16 +6,6 @@ import java.util.Collections;
 import java.util.Map;
 
 public class Sorter {
-    public static void main(String[] args) {
-        int[] nums = {4, 5, 765, 1, 451, 543, 2645, 742, 7, 12, 321324, 43, 453, 234, 243, 2, 2, 6, 757, 876};
-        System.out.println(nums.length);
-        quickSort2(nums);
-        for (int i : nums) {
-            System.out.print(i + ", ");
-        }
-        System.out.println(nums.length);
-    }
-
     /**
      * @ 快速排序
      * 基于分区
@@ -91,13 +81,24 @@ public class Sorter {
      * 必须归并两个有序数组
      */
     public static int[] mergeSort1(int[] nums) {
-        if (nums == null || nums.length <= 1)
-            return nums;
-        int[] left = mergeSort1(Arrays.copyOfRange(nums, 0, nums.length / 2));
-        int[] right = mergeSort1(Arrays.copyOfRange(nums, nums.length / 2, nums.length));
-        return merge1(left, right);
+        if (nums == null)
+            return null;
+        return mergeSort1Rec(nums, 0, nums.length);
     }
-
+    private static int[] mergeSort1Rec(int[] nums, int begin, int end) {
+        if (end - begin > 1) {
+            int[] left = mergeSort1Rec(nums, begin, begin + (end - begin) / 2);
+            int[] right = mergeSort1Rec(nums, begin + (end - begin) / 2, end);
+            return merge1(left, right);
+        } else {
+            int[] tmp = new int[end - begin];
+            int k = 0;
+            for (int i = begin; i < end; ++i) {
+                tmp[k++] = nums[i];
+            }
+            return tmp;
+        }
+    }
     private static int[] merge1(int[] left, int[] right) {
         int[] mergeArr = new int[left.length + right.length];
         int i = 0;
@@ -119,24 +120,22 @@ public class Sorter {
     public static void mergeSort2(int[] nums) {
         if (nums == null)
             return;
-        int[] tmp = new int[nums.length];
-        mergeSort2Rec(nums, tmp, 0, nums.length - 1);
+        int[] copy = Arrays.copyOf(nums, nums.length);
+        // 对copy归并排序，把结果放入nums
+        mergeSort2Rec(copy, nums, 0, nums.length - 1);
     }
 
     private static void mergeSort2Rec(int[] sourceArr, int[] mergeArr, int left, int right) {
         if (left < right) {
-            mergeSort2Rec(sourceArr, mergeArr, left, (left + right) / 2);
-            mergeSort2Rec(sourceArr, mergeArr, (left + right) / 2 + 1, right);
+            mergeSort2Rec(mergeArr, sourceArr, left, (left + right) / 2);
+            mergeSort2Rec(mergeArr, sourceArr, (left + right) / 2 + 1, right);
+            // 只能merge两个有序序列
             merge2(sourceArr, mergeArr, left, right);
         }
     }
 
     private static void merge2(int[] sourceArr, int[] mergeArr, int left, int right) {
         _merge(sourceArr, mergeArr, left, (left + right) / 2, right);
-        while (left <= right) {
-            sourceArr[left] = mergeArr[left];
-            ++left;
-        }
     }
 
     public static void mergeSort3(int[] nums) {
@@ -144,8 +143,9 @@ public class Sorter {
             return;
         int[] sourceArr = nums;
         int[] mergeArr = new int[sourceArr.length];
-        // 子问题规模从2开始到小于数组长度的最大子问题规模为止，每次规模增加一倍
-        // seg是子问题规模的一半
+        // 子问题规模从2开始每次增加一倍
+        // seg是子问题规模的一半，seg增长到小于原数组长度的最大长度
+        // seg必须是有序段
         for (int seg = 1; seg < sourceArr.length; seg += seg) {
             // 依次处理所有子问题
             // 子问题的起始位置和规模确定了，就可合并数组的某一部分了

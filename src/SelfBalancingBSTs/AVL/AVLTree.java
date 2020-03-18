@@ -63,14 +63,18 @@ public class AVLTree<E extends Comparable<? super E>> {
     // 2.发现最小不平衡子树
     // 3.再平衡
     private Node<E> insertRec(Node<E> root, E item) {
+        // 1
         if (root == null)
             return new Node<>(item);
         if (item.compareTo(root.item) < 0)
             root.left = insertRec(root.left, item);
         else if (item.compareTo(root.item) > 0)
             root.right = insertRec(root.right, item);
+        // 2
         root.height = 1 + Math.max(height(root.left), height(root.right));
         int balance = getBalance(root);
+
+        // 3
         if (balance > 1 && item.compareTo(root.left.item) < 0)
             return rightRotate(root);
         if (balance < -1 && item.compareTo(root.right.item) > 0)

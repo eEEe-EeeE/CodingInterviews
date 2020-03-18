@@ -5,6 +5,7 @@ public class LNode {
     LNode next;
 
     public LNode() {}
+    public LNode(Integer value) { this.value = value; }
     public LNode(Integer value, LNode next) {
         this.value = value;
         this.next = next;

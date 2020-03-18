@@ -49,7 +49,7 @@ public class Solution {
     private static Integer partition2(Integer[] arr, Integer begin, Integer end) {
         int left = begin;
         int right = end;
-        Integer piv = arr[begin];
+        Integer piv = arr[left];
         while (left < right) {
             while (left < right && arr[right] >= piv)
                 --right;

@@ -1,8 +1,8 @@
 package bean;
 
-import org.omg.PortableInterceptor.INACTIVE;
-
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 
 public class BTNode {
     private Integer key;
@@ -42,22 +42,20 @@ public class BTNode {
         this.right = right;
     }
 
-    static public BTNode createTreeByPre(Integer[] pre) {
-        preIndex = 0;
-        return _createTreeByPre(pre);
+    public static BTNode createTreeByPre(Integer[] pre) {
+        List<Integer> list = Arrays.asList(pre);
+        return createTreeByPreRec(list.iterator());
     }
 
-    static private Integer preIndex;
-
-    static private BTNode _createTreeByPre(Integer[] pre) {
-        if (pre[preIndex] != null) {
-            BTNode tree = new BTNode();
-            tree.setKey(pre[preIndex++]);
-            tree.setLeft(_createTreeByPre(pre));
-            tree.setRight(_createTreeByPre(pre));
-            return tree;
+    private static BTNode createTreeByPreRec(Iterator<Integer> iterator) {
+        Integer key = iterator.next();
+        if (key != null) {
+            BTNode node = new BTNode();
+            node.setKey(key);
+            node.setLeft(createTreeByPreRec(iterator));
+            node.setRight(createTreeByPreRec(iterator));
+            return node;
         } else {
-            ++preIndex;
             return null;
         }
     }
