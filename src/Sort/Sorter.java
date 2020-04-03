@@ -302,7 +302,7 @@ public class Sorter {
 
         int i = 0;
         for (int[] bucket : buckets) {
-            if (bucket.length > 1) {
+            if (bucket.length >= 1) {
                 insertSort(bucket);
                 for (int v : bucket)
                     nums[i++] = v;
