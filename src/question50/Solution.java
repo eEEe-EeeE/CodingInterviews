@@ -50,7 +50,7 @@ public class Solution {
         return s.toString();
     }
 
-    // 两个单词中出现的字母相同，每个字母出现的次数也相同，那么这两个单词护卫变位词
+    // 两个单词中出现的字母相同，每个字母出现的次数也相同，那么这两个单词互为变位词
     // 完成一个函数，判断两个字符串是否互为变位词
     static boolean solute3(String s1, String s2) {
         Map<Character, Integer> map = new HashMap<>();
